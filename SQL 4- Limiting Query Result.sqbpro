@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="F:/Personal Projects/sql project db sql lite/WSDA_Music.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="233"/><column_width id="1" width="0"/><column_width id="2" width="40"/><column_width id="3" width="3930"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainAlbum"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Album" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="219"/><column index="3" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">--This IS A COMMENT 
+
+/*
+CREATED BY: MANPREET KAUR
+CREATE DATE: 6 FEB 2024
+DESCRIPTION: THIS IS THE STRUCTURE OF A BASIC QUERY
+
+WE HAVE 11 TABLES IN THIS DATABASE 
+   */
+   
+
+select count(*) from Artist</sql><sql name="SQL 2-Sorting querry Result">/*
+Created By: Manpreet Kaur
+Create Date: 6 Feb 2024
+Description: This querry displays first name, last name and email address 
+ we have 11 tables in this databse
+*/
+
+select FirstName, LastName , Email from Customer;
+
+select 
+	FirstName,
+	LastName ,
+	Email 
+from 
+	Customer
+order by
+		LastName Desc;
+		
+SELECT 
+	FirstName AS [Customer First Name],
+	LastName AS 'Customer Last Name', 
+	Email AS EMAIL
+FROM Customer
+order by
+			FirstName ASC,
+			LastName DESC ;	
+-------------------------------------------------
+
+
+		
+</sql><sql name="SQL 3-Filter and analyse numeric Data">/*
+How many customers purchased two songs at $ 0.99 each ?
+*/
+
+/*
+Created by: Manpreet Kaur
+Created Date: 6 Feb 2024
+Description:customers purchased two songs at $ 0.99 each 
+
+*/
+
+
+SELECT 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	total=1.98
+ORDER BY 
+	InvoiceDate;
+	
+	
+</sql><sql name="SQL 5-Between Operator">/*
+Created by: Manpreet Kaur
+Created Date: 6 Feb 2024
+Description: How many invoices exist between $1.98 and $5.00?
+
+*/
+
+
+SELECT 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	total between 1.98 and 5.00
+ORDER BY 
+	InvoiceDate;
+	</sql><sql name="SQL 4- Limiting Query Result">
+/*
+Created by: Manpreet Kaur
+Created Date: 10 Feb 2024
+Description: Limit the result by showing top 10 records only ?
+
+*/
+
+
+
+SELECT 
+	FirstName AS [Customer First Name],
+	LastName AS 'Customer Last Name', 
+	Email AS EMAIL
+FROM Customer
+order by
+			FirstName ASC,
+			LastName DESC 
+LIMIT 10			;				
+			</sql><current_tab id="4"/></tab_sql></sqlb_project>

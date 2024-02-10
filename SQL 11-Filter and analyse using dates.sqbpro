@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="F:/Personal Projects/sql project db sql lite/WSDA_Music.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="233"/><column_width id="1" width="0"/><column_width id="2" width="40"/><column_width id="3" width="3930"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainAlbum"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Album" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="219"/><column index="3" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 11-Filter and analyse using dates">/*
+Created by: Manpreet Kaur
+Created Date: 10 Feb 2024
+Description: How many invoices were billed on 2010-05-22 00:00:00? ?
+
+*/
+
+
+SELECT 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	InvoiceDate='2010-05-22 00:00:00'
+ORDER BY 
+	InvoiceDate;
+----------------------------------------------------------------------------------------------
+
+SELECT 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	Date(InvoiceDate)='2010-05-22'
+ORDER BY 
+	InvoiceDate;
+	
+------------------------------------------------------------------------------------------------------------
+
+-- Description: How many invoices were billed AFTER 2010-05-22 and have a total less that $3:00 ?	
+
+
+SELECT 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	Date(InvoiceDate)&gt;'2010-05-22' AND total &lt;=3
+ORDER BY 
+	InvoiceDate;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</sql><sql name="SQL 12: Analysis using dates, Logical OR, AND ,IF then Logic Case">/*
+Created by: Manpreet Kaur
+Created Date: 10 Feb 2024
+Description: Logical Operator 
+WSDA Music Sales Goal
+Get all invoices whos's billing cities name start with P or starts with D?
+using wild card character
+*/
+-- 
+
+Select 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM 
+		Invoice
+WHERE 
+		BillingCity like 'P%' OR BillingCity LIKE 'D%'
+ORDER BY
+		InvoiceDate;
+		
+---------------------------------------------------------------------------
+-- Sales Goal 
+-- Get all invoices that are greater than 1.98 from any cities whose name start with P or starts with D?		
+
+-- PEDMAS: Parenthesis, Exponents, Multiplication/Division, Addition/Subtraction
+-- BEDMAS: Bracket, Exponent, Multiplication/Division, Addition/Subtraction
+
+
+Select 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM 
+		Invoice
+WHERE 
+		total&gt;1.98 AND (BillingCity like 'P%' OR BillingCity LIKE 'D%')
+ORDER BY
+		InvoiceDate;
+---------------------------------------------------------------------------------
+
+/* 
+Sales Goal:
+How many customers spent money between $7.00 and $15.00 
+
+Sales Category:
+Baseline Purchase- Between $0.99 and $1.99
+Low Purchase- Between $2.00 and $6.99
+Target Purchase- Between $7.00 and $15.00
+Top Performer- Above $15.00
+*/
+
+
+Select 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total,
+	CASE
+	WHEN total&lt;2.00 THEN 'Baseline Purchase'
+	WHEN total BETWEEN 2.00 AND 6.99 THEN 'Low Purchase'
+	WHEN total BETWEEN 7.00 and 15.00 THEN 'Target Purchase'
+	Else 'Top Performer'
+	END AS PurchaseType
+	
+FROM 
+		Invoice
+
+ORDER BY
+		BillingCity;
+		
+-------------------------------------------------------------------------------	
+
+
+Select 
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total,
+	CASE
+	WHEN total&lt;2.00 THEN 'Baseline Purchase'
+	WHEN total BETWEEN 2.00 AND 6.99 THEN 'Low Purchase'
+	WHEN total BETWEEN 7.00 and 15.00 THEN 'Target Purchase'
+	Else 'Top Performer'
+	END AS PurchaseType
+	
+FROM 
+		Invoice
+WHERE 
+		PurchaseType='Top Performer'
+
+ORDER BY
+		BillingCity;
+		
+-------------------------------------------------------------------------------			</sql><current_tab id="0"/></tab_sql></sqlb_project>

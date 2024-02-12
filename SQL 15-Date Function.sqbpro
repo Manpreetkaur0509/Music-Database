@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="F:/Personal Projects/sql project db sql lite/WSDA_Music.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="233"/><column_width id="1" width="0"/><column_width id="2" width="50"/><column_width id="3" width="5253"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainAlbum"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Album" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="219"/><column index="3" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 13- Joins">/*
+Created By :Manpreet Kaur
+Created Date: 10 Feb 2024 
+Description: JOINS
+*/
+
+-- Inner JOIN
+
+SELECT *
+FROM Invoice i
+INNER JOIN 	Customer c
+ON i.CustomerId = c.CustomerId	
+ORDER BY C.CustomerId ;
+
+-----------------------------------------------------------
+
+SELECT
+	c.FirstName,
+	c.LastName,
+	i.InvoiceId,
+	i.CustomerId,
+	i.InvoiceDate,
+	i.total
+FROM Invoice i
+INNER JOIN 	Customer c
+ON i.CustomerId = c.CustomerId	
+ORDER BY C.CustomerId ;
+
+------------------------------------------------------------------------------
+SELECT
+	c.FirstName,
+	c.LastName,
+	i.InvoiceId,
+	i.CustomerId,
+	i.InvoiceDate,
+	i.total
+FROM Invoice i
+LEFT JOIN 	Customer c
+ON i.CustomerId = c.CustomerId	
+ORDER BY C.CustomerId ;	
+
+------------------------------------------------------------------------
+
+/* SELECT
+	c.FirstName,
+	c.LastName,
+	i.InvoiceId,
+	i.CustomerId,
+	i.InvoiceDate,
+	i.total
+FROM Invoice i
+RIGHT JOIN 	Customer c
+ON i.CustomerId = c.CustomerId	
+ORDER BY C.CustomerId ;
+
+*/
+
+-----------------------------------------------------------
+-- Description: Joins on mor ethan 2 tables 
+-- which employees are responsible for 10 highest individual sales ? 
+
+SELECT
+	e.FirstName,
+	e.LastName,
+	e.EmployeeId,
+	c.FirstName,
+	c.LastName,
+	c.SupportRepId,
+	i.CustomerId,
+	i.total
+FROM Invoice i
+ JOIN 	Customer c
+ON i.CustomerId = c.CustomerId	
+INNER JOIN Employee e
+ON c.SupportRepId=e.EmployeeId
+ORDER By 
+	i.total DESC
+LIMIT 10 ;	
+
+--------------------------------------------------------------------------</sql><sql name="SQL 14- SQl functions upper,lower,connecting string,seperating string">/*
+
+Created By :Manpreet Kaur
+Created Date: 10 Feb 2024 
+Description: Create a mailing list of US customers
+
+*/
+
+SELECT
+FirstName,LastName,Address,FirstName||LastName
+FROM Customer
+WHERE COUNTRY='USA' ;
+
+--------------------------------------------------------------------
+
+SELECT
+FirstName,LastName,Address,FirstName||' '||LastName
+FROM Customer
+WHERE COUNTRY='USA' ;
+
+--------------------------------------------------------------------------
+
+SELECT
+FirstName,LastName,Address,FirstName||' '||LastName||' '||Address
+
+FROM Customer
+WHERE COUNTRY='USA' ;
+
+--------------------------------------------------------------------
+-- USE OF PIPE(||) SYMBOL FOR CONCATINATION TO GENERATE CUSTOMER FULL MAILING ADDRESS
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+
+FROM Customer
+WHERE COUNTRY='USA' ;
+
+-----------------------------------------------------------------------------
+
+-- USE OF ALIAS
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+	AS Mailing_Address
+FROM Customer
+WHERE COUNTRY='USA' ;
+
+-------------------------------------------------------------------------------------
+
+-- Truncate to shorten or reduce text 
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+	AS Mailing_Address,
+	lENGTH(postalcode)
+FROM Customer
+WHERE COUNTRY='USA' ;
+-------------------------------------------------------------------------------------------
+-- truncate postal code to first 5 digits
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+	AS Mailing_Address,
+	lENGTH(postalcode),
+	substr(postalcode,1,5) as '5 Digit Postal code'
+FROM Customer
+WHERE COUNTRY='USA' ;
+-------------------------------------------------------------------------------------------
+-- upper function to make the string of text in upper CASE or Capitalised
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+	AS Mailing_Address,
+	lENGTH(postalcode),
+	substr(postalcode,1,5) as '5 Digit Postal code',
+	upper(firstname) AS 'First Name All caps'
+FROM Customer
+WHERE COUNTRY='USA' ;
+---------------------------------------------------------------------------------
+
+-- Lower() to convert string of text to all lower CASE
+
+SELECT
+	FirstName,
+	LastName,
+	Address,
+	FirstName||' '||LastName||' '||Address||','||City||','||State||','||PostalCode
+	AS Mailing_Address,
+	lENGTH(postalcode),
+	substr(postalcode,1,5) as '5 Digit Postal code',
+	upper(firstname) AS 'First Name All caps',
+	lower(lastname) AS 'Last Name All Lower'
+FROM Customer
+WHERE COUNTRY='USA' ;
+-----------------------------------------------------------------------------------
+ 
+/* 
+ DATE Functions
+ 
+ Allow the manipulation of data that is stored in various date and time formats
+ 
+ */
+ 
+ 
+</sql><sql name="SQL 15-Date Function">/*
+Created By :Manpreet Kaur
+Created Date: 11 Feb 2024 
+Description: Calculate the ages of all employees
+
+*/
+
+select 
+	LastName,
+	FirstName,
+	BirthDate,
+	strftime('%Y-%m-%d',Birthdate) as 'Birthdate No Timecode'
+		FROM
+			Employee;
+			
+----------------------------------------------------------------------------
+
+select 
+	LastName,
+	FirstName,
+	BirthDate,
+	strftime('%Y-%m-%d',Birthdate) as 'Birthdate No Timecode',
+	strftime('%y-%m-%d','now')- strftime('%y-%m-%d',Birthdate)as Age
+		FROM
+			Employee;			</sql><sql name="SQL 16-time function,nesting function">/*
+Created By :Manpreet Kaur
+Created Date: 11 Feb 2024 
+Description: Aggregate Functions
+what are our all time global sales?
+
+*/
+
+SELECT
+	sum(total) as 'total sales'
+From Invoice ;
+--------------------------------------------------------------------
+SELECT
+	sum(total) as 'total sales',
+	avg(total) as 'Average sales',
+	max(total) as 'Maximum Sales',
+	min(total) as 'Min Sales',
+	count(*) as 'Sales Count'
+From Invoice ;
+
+-----------------------------------------------------------------------
+/*
+Created By :Manpreet Kaur
+Created Date: 11 Feb 2024 
+Description:Nesting Functions
+A function contained within another function
+
+*/
+SELECT
+	sum(total) as 'total sales',
+	round(avg(total),2) as 'Average sales',
+	max(total) as 'Maximum Sales',
+	min(total) as 'Min Sales',
+	count(*) as 'Sales Count'
+From Invoice ;
+
+
+</sql><current_tab id="2"/></tab_sql></sqlb_project>

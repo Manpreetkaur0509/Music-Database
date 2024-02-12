@@ -8,13 +8,13 @@ Create Date: 6 Feb 2024
 Database name: WSDA_Music.db
 
 ![image](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/4a46e3f0-e2ae-416a-8457-b777239b4059)
+![image](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/e5514d95-6427-45fb-8881-db0eba52c4ab)
 
 ![Database Schema](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/4f91d8d4-fd42-4da7-94f3-72761d171596)
 
 
 
 
-![image](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/809736db-d66c-40aa-981d-3b30985807a4)
 
 
 

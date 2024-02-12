@@ -22,3 +22,5 @@ Database name: WSDA_Music.db
 
 
 ![image](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/adc4652b-f7e9-46ce-900c-f1b6a7dc8651)
+
+![image](https://github.com/Manpreetkaur0509/Music-Database/assets/146500547/20a53bb3-cedf-40d1-a2cf-4cbfecbaa1b3)
